@@ -1,0 +1,21 @@
+﻿@using Microsoft.AspNetCore.Authentication
+@model AuthenticationScheme[]
+@{
+    ViewData["Title"] = "Авторизация";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<div class="jumbotron">
+    <h1>Авторизация</h1>
+    <p class="lead text-left">Аутентификация с и пользованием внешнего провайдера:</p>
+
+    @foreach (var scheme in Model.OrderBy(p => p.DisplayName))
+    {
+        <form action="/signin" method="post">
+            <input type="hidden" name="Provider" value="@scheme.Name" />
+            <input type="hidden" name="ReturnUrl" value="@ViewBag.ReturnUrl" />
+
+            <button class="btn btn-lg btn-success m-1" type="submit">@scheme.DisplayName</button>
+        </form>
+    }
+</div>
